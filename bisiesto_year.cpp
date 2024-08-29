@@ -2,7 +2,7 @@
 Archivo: bisiesto_year.cpp
 Autor: federico.barbeetti@correounivalle.edu.co>
 Fecha creación: 2024-08-29
-Fecha última modificación: 2024-08-29
+Fecha última modificación: 2024-08-29 
 Licencia: GNU-GPL
 */
 
