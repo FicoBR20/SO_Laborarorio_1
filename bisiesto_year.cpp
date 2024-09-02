@@ -2,7 +2,11 @@
 Archivo: bisiesto_year.cpp
 Autor: federico.barbeetti@correounivalle.edu.co>
 Fecha creación: 2024-08-29
+<<<<<<< HEAD
 Fecha última modificación: 2024-08-29
+=======
+Fecha última modificación: 2024-08-29 
+>>>>>>> dfico
 Licencia: GNU-GPL
 */
 
@@ -24,12 +28,21 @@ int main(){
 
     if (answer%4==0)
         {
+<<<<<<< HEAD
             cout<<"Usted nació en un año BICIESTO\n";
         }
 
     else{
         
         cout<<"Usted NO nació en un año BICIESTO\n";
+=======
+            cout<<"Usted nació en un año Biciesto\n";
+        }
+
+    else{
+
+        cout<<"Usted NO nació en un año Biciesto\n";
+>>>>>>> dfico
 
         }
 
