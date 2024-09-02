@@ -23,7 +23,7 @@ Esta funcion genera un numero entero aleatorio entre 0 y 30
 */
 int ingresaNumero(){
 
-    int limite=8// limite de cantidad de numeros a examinar.
+    int limite=8;// limite de cantidad de numeros a examinar.
     
     int ingreso = rand() % limite;//numero entero aleatorio
 
