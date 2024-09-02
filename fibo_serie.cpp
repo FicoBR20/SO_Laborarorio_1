@@ -11,52 +11,50 @@ Licencia: GNU-GPL
 using namespace std;
 
 
+
 /**
- * funcion que entrega el valor de la serie fibonaci
- * dado un n termino de la serie.
- * ejemplo:
- * si n = 0 entonces slowlyFib(0) -> 0
- * si n = 1 entonces slowlyFib(1) -> 0
- * si n = 4      entonces slowlyFib(1) -> 0
+ * Funcion que entrega el volor del termino de la serie fibonacci
+ * en la ubiacion n de la serie. 
+ * miFibo(n) -> termino en la posicion n de la serie
+ * miFibo(1)->0
+ * miFibo(2)->1
+ * miFibo(3)->1
+ * miFibo(4)->2
+ * miFibo(5)->3
  */
-int slowlyFib(int n){//enesimo termino de la serie
-
-    int fibo;//valor del n termino de la serie
-    int *fib = &fibo;
-
-    if (n==0 || n==1)
+int miFibo(int n){//n es la posicion del termino en la serie
+    int acum1=0;// acumulador de sumas sucesivas
+    if (n==1)
     {
-        *fib=0;
-        return *fib;
+        return acum1;
     }
-    else if (n>1)
+    else if (n==2)
     {
-        while (n>1)
-        {
-            *fib=n+(n-1);
-            slowlyFib(n-1);
+        return acum1+1;
+    }
+    while (n>1)
+    {
             n--;
-
-        }
-        
+            acum1 = miFibo(n-1)+miFibo(n);
+            return acum1;
     }
-    
-    
-    
-    return fibo;
+    return acum1;
 }
 
     int main(){
 
     string auxiliar;
-    int limite_Serie; // cantidad de terminos de la serie
-    cout <<"\nQue cantidad de terminos de ls fibonacci desea obtener\nDebe ingresar un numero entero positivo (se incluye el cero)";
+    int largoSerie; // cantidad de terminos de la serie a imprimir en consola.
+    cout <<"\nCuantos terminos de la serie Fibonacci\nDesea imprimir en consola\n
+    Debe ingresar un numero entero positivo";
     getline(cin, auxiliar);
-    limite_Serie=stoi(auxiliar);
+    largoSerie=stoi(auxiliar);
 
-    int prueba=0;
+    int prueba =0;
 
-    cout<<"El factorial del termino "<<to_string(limite_Serie)<<" es "<<slowlyFib(limite_Serie)<<endl;
+
+
+    //cout<<"El factorial del termino "<<to_string(termino_Serie)<<" es "<<miFibo(termino_Serie)<<endl;
 
     return 0;
 
