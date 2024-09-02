@@ -56,7 +56,7 @@ int slowlyFib(int n){//enesimo termino de la serie
 
     int prueba=0;
 
-    cout<<"El factorial de "<<to_string(prueba)<<" es "<<slowlyFib(limite_Serie)<<endl;
+    cout<<"El factorial del termino "<<to_string(limite_Serie)<<" es "<<slowlyFib(limite_Serie)<<endl;
 
     return 0;
 
