@@ -78,7 +78,7 @@ vector <int> imprimeFibo(int largoSerie){
  * Programa que imprime en consola los n terminos
  * de la serie fibonacci que el usuario decida ver.
  */
-int main()
+int main() 
 {
     vector <int> serial;//contenedor de los valores de la n serie
     

@@ -14,9 +14,10 @@ using namespace std;
 Este programa le solicita al usuario una clave de ingreso
 */
 
-int inicio(){
+int ayuda(){
 
-    cout<<"\nIngrese la clave 123 al ejecutar ./ \n\n";
+    cout<<"La instuccion de ejecucion puede ser asi: ./clave 456 \n\n"<<"Donde 'clave' es el nombre del archivo ejecutable y '456' la clave ingresada\n\n"<<
+    "!!! Ejecute de nuevo tomando en cuanta las instrucciones dadas !!!\n\n";
 
 
     return 0;
@@ -28,12 +29,17 @@ int main(int argc, char const *argv[])
 {
     string clave_Admin ="123";
     string clave_usuario=" ";
-    
+
+    int contador=0;
+
+
+
     if(argc!=2){
 
-	cout<<"\nDebe ingresar una contraseña \n\n";
+	cout<<"\nDebe ingresar una contraseña numerica de 3 terminos seguidos \n\n"<<
+    "EJEMPLO: ./[nombre del archivo ejecutable] [clave numerica de 3 cifras]\n\n";
 
-    inicio();
+    ayuda();
 
 	}
     else if (argc==2)
@@ -42,12 +48,13 @@ int main(int argc, char const *argv[])
 
        if (clave_Admin==clave_usuario)
        {
-        cout<<"\nBIENVENIDO\n";
+        cout<<"\nBIENVENIDO........\n\n";
        }
-       else{
-        cout<<"\nCLAVE ERRONEA...intente de nuevo\n\n";
+       else if(clave_Admin!=clave_usuario)
+       {
+        cout<<"\nCLAVE ERRONEA, usted ingreso "<<clave_usuario<<" intente de nuevo\n\n";
+
        }
-       
     }
         
     return 0;
