@@ -200,7 +200,29 @@ void caStatico(){
 
     indefinido = static_cast <int>(existe);
 
-    cout<<"despues del static cast vale "<<indefinido<<endl;
+    cout<<"despues del static cast vale "<<indefinido<<"\n"<<endl;
+
+
+}
+/**
+ * Conversión dinámica
+
+La conversión dinámica solo se puede utilizar con punteros y 
+referencias a clases (o void*). Es una conversión en tiempo de 
+ejecución y se utiliza para comprobar la validez de una conversión.
+La expresión devuelve un valor NULL si la conversión falla. 
+Esta conversión solo se puede utilizar cuando realizamos una 
+conversión de tipo de una clase padre a una clase derivada.
+
+La conversión dinámica utiliza el mecanismo de identificación de
+tipo en tiempo de ejecución (RTTI) para que toda la información
+sobre el tipo de datos de un objeto esté disponible en tiempo de 
+ejecución. La información solo está disponible para clases con 
+al menos una función virtual.
+ */
+void castDinamico(){
+
+    cout<<" pendiente de ejecutar \n";
 
 
 }
