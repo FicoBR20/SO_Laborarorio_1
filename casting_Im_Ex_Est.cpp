@@ -1,8 +1,8 @@
 /*
-Archivo: cal_factorial.cpp
+Archivo: casting_Im_Ex_Est.cpp
 Autor: federico.barbeetti@correounivalle.edu.co>
-Fecha creación: 2024-08-29
-Fecha última modificación: 2024-08-29 
+Fecha creación: 2024-09-04
+Fecha última modificación: 2024-09-04 
 Licencia: GNU-GPL
 */
 
