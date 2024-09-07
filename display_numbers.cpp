@@ -11,6 +11,15 @@ Licencia: GNU-GPL
 #include <vector>
 #include <math.h>
 using namespace std;
+
+
+/**
+ * variable que representa los residuos, inicia con el valor de x
+ * y generativamente decrece hasta un residuo 0 o 1.
+ */
+int str;
+
+
 /**
  * funcion que entrega el mayor exponente de factores de 2
  * que contiene x.
@@ -33,28 +42,25 @@ int pot_Dos(int x){//x>0
         auxiliar=auxiliar/2;
         contador ++;
     }
-   // cout<<"El numero "<<x<<" tiene "<<contador<<" potencias de dos\n";
 
     return contador;
     
 }
 
 /**
- * funcion que entrega un vector con ceros y unos que 
- * representan el codigo binario de un numero entero
- * ingresado.
- * int x ->... 0 1 0 0 0 1 0 ....
- */
-vector <int> fracciones(int x){
+ * funcion que entrega un vector <int> con los exponetes en base 2
+ * correspondientes a los factores en los cuales puede descomponerse
+ * un numero x.
+ * fracciones(55) -> [5,4,2,1] 
+ * -> { [2^5]+[2^4]+[2^2]+[2^1] } -> [<= x] sera menor o igual a x
+ * */
+vector <int> los_exponentes(int x){
 
     vector <int> receptor;//recepciona exponentes
-    int auxiliar =0;//para llenar arreglo
-    /**
-     * se le asigna inicialmente el x original, luego tomara
-     * sucesivamente valores de los residuos, hasta reducirse
-     * a 1 o a 0.
-     */
-    int vlr_base=x;//asignacion, se reducira hasta 1 o 0;
+
+    int auxiliar;//reservara los exponentes en el ciclo
+    
+    str = x;//asignacion inicial.
 
     /***
      * ciclo que llena en vector receptor con los
@@ -62,100 +68,89 @@ vector <int> fracciones(int x){
      * numero n y a sus residuos hasta reducirlos 
      * a 2
      */
-    while (vlr_base>=2){
-        auxiliar = pot_Dos(vlr_base);
-        cout<<"El numero "<<vlr_base<<
-        " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
+    while (str>=2){
+        auxiliar = pot_Dos(str);
         receptor.push_back(auxiliar);
-        vlr_base = vlr_base-pow(2, auxiliar);//nuevo residuo
-
-    }
-
-    for(int comp : receptor){
-        cout<<"El vector de exponentes es "<<comp<<endl;
-    }
-
-
-    string informe ="";//string con el binario
-
-
-    /**
-     * se inicializa el vector binarios que contendra los
-     * digitos binarios representativos para el numero entero
-     * ingresado.
-     */
-    int ex = receptor[0];
-    vector<int>binarios (ex+1, 0);//contiene el binario de x
-
-    cout<<"size of binarios with cero values is\n"<<binarios.size();
-
-    cout<<"\nprimer valor de binarios es "<<binarios[0];
-
-    
-    
-
-    for (int i = 1; i < receptor.size()+1; i++)
-    {
-        binarios[receptor[i]]=1;
-
+        str = str-pow(2, auxiliar);//nuevo residuo
 
     }
     
-
-    // for(int ubic : receptor){
-    //     binarios.insert(ubic, 1);
-    //     cout<<"mi ubic"<<ubic<<endl;
-    // }
-    if (vlr_base>0)
-    {
-        binarios.push_back(1);//digito en numeros impares
-    }
-
-    int revision = binarios.size();
-    cout<<"size of binarios es; "<<revision<<endl;
-
-
-    /**
-     * impresion de la representacion binaria
-     * del numero ingresado. 
-     */
-    for(int final : binarios){
-        informe=informe+to_string(final);
-    }
-    cout<<"La representacion binaria del numero "<<x<<" es: "
-    <<informe<<endl;
-    cout<<"===================================================== "<<endl;
-
-    
-
     return receptor;
     
+}
+
+
+/**
+ * funcion que entrega un string con los simbolos (0,1)
+ * resultado de la conversion del numero ingresado a codigo
+ * binario.
+ */
+string informeFinal(vector <int> exponentes){
+
+    /**
+     * limite del size para el vector que contendra
+     * los datos binarios finales.
+     */
+    int lim = exponentes[0];
+
+    vector <int> lista_unos(lim, 0);//vercto contenedor de binarios
+
+    /**
+     * ciclo para llenar los binarios en el arreglo
+     */
+    for (int i = 1; i < exponentes.size()+1; i++)
+    {
+       lista_unos[exponentes[i]]=1;
+    }
+    /**
+     * condicional para el ultimo digito
+     */
+    if (str>0)
+    {
+        lista_unos.push_back(1);
+    }
+
+    string informe ="";//string de salida con el binario
+
+    /**
+     * concatenacion string 
+     */
+    for(int sale : lista_unos){
+        informe = informe + to_string(sale);
+
+    }
+    
+    return informe;
 }
 
 /**
  * Este programa le solicita al usuario el ingreso de un número
  * y seguidamente le entrega la representacion equivalente en 
- * notacion decimal, notacion octal y notacion hexadecimal.
+ * notacion binaria, notacion octal y notacion hexadecimal.
  */
 
 int main(){
     string auxiliar;
     int answer;
-    cout <<"Ingrese el numero entero a expresar ";
+    cout <<"Ingrese el numero entero a expresar en binario\n";
     getline(cin, auxiliar);
     answer=stoi(auxiliar);
     int info = answer;
 
-    fracciones(answer);
+    vector<int>exp;//arreglo de exponentes
+    string informe_binario="";//contiene los ceros y unos.
+
+    exp = los_exponentes(answer);
+
+    cout<<"====================================================\nEl numero "<<answer<<" en notacion binaria es asi: "<<
+    informeFinal(exp)<<"\n====================================================\n"<<endl;
+    
 
 
 
-
-    // cout<<"La representacion decimal de "<<answer<<" es: "<<endl;
-    // cout<<"La representacion octal de "<<answer<<" es: "<<endl;
-    // cout<<"La representacion hexadecimal de "<<answer<<" es: "<<endl;
 
 
     return 0;
 
 }
+
