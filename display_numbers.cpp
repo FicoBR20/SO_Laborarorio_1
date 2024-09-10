@@ -13,6 +13,12 @@ Licencia: GNU-GPL
 using namespace std;
 
 
+vector <int> receptor(10,0);//recepciona exponentes
+vector<int>desbordada(10,9999);//info de desborde.
+int info_exponentes=0;// {funcion vector exponentes} -> auxiliar para salida en consola
+
+
+
 /**
  * variable que representa los residuos, inicia con el valor de x
  * y generativamente decrece hasta un residuo 0 o 1.
@@ -35,7 +41,11 @@ int super_auxiliar=0;
 
 int auxiliar;//funcion en los exponentes ,reservara los exponentes en el ciclo
 
-vector<int>factores(10,0);//recibe los exponentes de 2 de cada ciclo.
+vector<int>factores(10,0);//pertenece a pot_Dos -> recibe los exponentes de 2 de cada ciclo.
+
+
+
+
 
 
 /**
@@ -56,7 +66,7 @@ int pot_Dos(int x){//x>0
 
     if (x<0)
     {
-        cout<<" se desborda..\n"<<endl;
+        cout<<" se desborda....Debe ingresar un numero positivo\n"<<endl;
 
         return 0;
     }
@@ -148,35 +158,95 @@ int pot_Dos(int x){//x>0
  * */
 vector <int> los_exponentes(int x){
 
-    vector <int> receptor;//recepciona exponentes
-
-
-
-    /***
-     * ciclo que llena en vector receptor con los
-     * valores de las potencias de 2 aplicadas al
-     * numero n y a sus residuos hasta reducirlos 
-     * a 2
-     */
-    while (x>=2){
-        auxiliar = pot_Dos(x);
-        receptor.push_back(auxiliar);
-        acum_exp = acum_exp + 1;
-        x = x-pow(2, auxiliar);//nuevo residuo
-        // if (x<0)
-        // {
-        //     return receptor;
-        // }
-        // else{
-
-        //     los_exponentes(x);
-        
-        // }
-        
+    if (x<0)
+    {
+        cout<<"....funcion desbordada...\n...debe ingresar un numero entero positivo...\n\n";
+        return desbordada;
 
     }
-             
+    else if ((x>=0 || x<=2))
+    {
+        if (x%2!=0)
+        {
+            receptor.pop_back();
+            receptor.push_back(1);
+        }
+        else if (x%2==0)
+        {
+            if (x==2)
+            {
+                receptor[receptor.size()-x]=1;
+            }
+            
+            receptor.pop_back();
+            receptor.push_back(0);
+        }
+        
+        
+    }
+
+    else if (x>2)
+    {
+        /***
+         * ciclo que llena en vector receptor con los
+         * valores de las potencias de 2 aplicadas al
+         * numero n y a sus residuos hasta reducirlos 
+         * a 2
+         */
+        
+            if (x%2!=0)
+            {
+                
+                
+                auxiliar = pot_Dos(x);
+
+                cout<<"El numero "<<info_exponentes<<
+                " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
+                x = x-pow(2, auxiliar);
+
+                if (x<0)
+                {
+                    cout<<"hay que salir impares\n";
+                }
+                else{
+                    receptor.push_back(auxiliar);
+                    los_exponentes(x);
+                }
+            }
+            else if (x%2==0)
+            {
+                auxiliar = pot_Dos(x);
+
+                cout<<"El numero "<<info_exponentes<<
+                " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
+                x = x-pow(2, auxiliar);
+
+                if (x<0)
+                {
+                    cout<<"hay que salir pares\n";
+                }
+                else{
+                    receptor.push_back(auxiliar);
+                    los_exponentes(x);
+                }
+                
+            }
+            
+            
+            
+
+        
+    }
     
+    
+    
+    
+    
+    
+
+
+
+
 
 
     //impresion
