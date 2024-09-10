@@ -17,8 +17,23 @@ using namespace std;
  * variable que representa los residuos, inicia con el valor de x
  * y generativamente decrece hasta un residuo 0 o 1.
  */
-int str;
+int x=0;
 
+int acum_exp=0;//acumulador en la funcion los_exponentes.
+
+/**
+ * variable usada en la funcion pot_Dos para acumulas
+ * en el proceso la cantidad de exponentes o potencias de 2
+ * que tenga un numero.
+ */
+int con_inter=0;
+/**
+ * variable auxiliar usada en la funcion pot_Dos, sirve para
+ * impresion del resultado final en la consola
+ */
+int super_auxiliar=0;
+
+int auxiliar;//funcionn los exponentes ,reservara los exponentes en el ciclo
 
 /**
  * funcion que entrega el mayor exponente de factores de 2
@@ -34,16 +49,77 @@ int str;
  */
 int pot_Dos(int x){//x>0
 
-    int contador=1;//acumula cantidad de exponentes en base 2
-    int auxiliar = x;//auxiliar para implementacion
+    super_auxiliar=x;
 
-    while (auxiliar/2 != 1)
+    if (x<0)
     {
-        auxiliar=auxiliar/2;
-        contador ++;
+        cout<<" se desborda..\n"<<endl;
+
+        return 0;
+    }
+    else if (x==0)
+    {
+        cout<<"aqui voy con cero "<<con_inter<<endl;
+        return con_inter;
+    }
+    else if (x==1)
+    {
+        cout<<"aqui voy impar == 1 "<<con_inter<<endl;
+        return con_inter;
+
+    }
+    
+    
+    else if (x>1)
+    {
+    
+        if (x%2!=0)
+        {
+            con_inter++;
+            x=x-(2*con_inter);
+            if (x<0)
+            {
+                cout<<" el contador de potencias de 2 del numero "
+                <<super_auxiliar<<" es "<<con_inter<<endl;
+
+                return con_inter;
+            }
+            else{
+                pot_Dos(x);
+
+            }
+
+
+            
+            
+        }
+        else if (x%2==0)
+        {
+            con_inter ++;
+            x = x - (2*con_inter);
+            if (x>0)
+            {
+                pot_Dos(x);
+                
+
+            }
+            else{
+                cout<<" el contador de potencias de 2 del numero "
+                <<super_auxiliar<<" es "<<con_inter<<endl;
+
+                return con_inter;
+            }
+            
+            
+        }
+        
+    
     }
 
-    return contador;
+    cout<<" con+inter.. al final saliendo "<<con_inter<<endl;
+
+
+    return con_inter;
     
 }
 
@@ -58,9 +134,28 @@ vector <int> los_exponentes(int x){
 
     vector <int> receptor;//recepciona exponentes
 
-    int auxiliar;//reservara los exponentes en el ciclo
+
     
-    str = x;//asignacion inicial.
+    if (x<0)
+    {
+        cout<<" se desborda..\n"<<endl;
+
+        system("exit");
+    }
+    else if (x==0)
+    {
+        
+    }
+    else if (x==1)
+    {
+        //acum_exp++;
+        // cout<<"aqui voy impar == 1 "<<con_inter<<endl;
+
+        //return con_inter;
+    }
+     
+    
+    
 
     /***
      * ciclo que llena en vector receptor con los
@@ -68,12 +163,36 @@ vector <int> los_exponentes(int x){
      * numero n y a sus residuos hasta reducirlos 
      * a 2
      */
-    while (str>=2){
-        auxiliar = pot_Dos(str);
+    while (x>1){
+        auxiliar = pot_Dos(x);
         receptor.push_back(auxiliar);
-        str = str-pow(2, auxiliar);//nuevo residuo
+        acum_exp = acum_exp + 1;
+        x = x-pow(2, auxiliar);//nuevo residuo
+        if (x<0)
+        {
+            return receptor;
+        }
+        else{
+
+            los_exponentes(x);
+        
+        }
+        
 
     }
+             
+    
+
+
+    //impresion
+
+    int indice =0;
+
+    for(int  exp : receptor){
+        cout<<"receptor [ "<<indice<<" ] = "<<exp<<" acum es "<<acum_exp<<endl;
+        indice++;
+    }
+    
     
     return receptor;
     
@@ -87,28 +206,24 @@ vector <int> los_exponentes(int x){
  */
 string informeFinal(vector <int> exponentes){
 
-    /**
-     * limite del size para el vector que contendra
-     * los datos binarios finales.
-     */
-    int lim = exponentes[0];
-
-    vector <int> lista_unos(lim, 0);//vercto contenedor de binarios
+    vector <int> lista_unos(10, 0);//vercto contenedor de binarios
 
     /**
      * ciclo para llenar los binarios en el arreglo
      */
-    for (int i = 1; i < exponentes.size()+1; i++)
+    for (int i = 0; i < exponentes.size(); i++)
     {
-       lista_unos[exponentes[i]]=1;
+       lista_unos[ lista_unos.size() - exponentes[i]]=1;
     }
-    /**
-     * condicional para el ultimo digito
-     */
-    if (str>0)
-    {
-        lista_unos.push_back(1);
-    }
+        if (exponentes.back()==1)
+        {
+            lista_unos.pop_back();
+            lista_unos.push_back(1);
+        }
+    
+
+    int x = exponentes.back();
+    
 
     string informe ="";//string de salida con el binario
 
@@ -140,10 +255,15 @@ int main(){
     vector<int>exp;//arreglo de exponentes
     string informe_binario="";//contiene los ceros y unos.
 
-    exp = los_exponentes(answer);
 
-    cout<<"====================================================\nEl numero "<<answer<<" en notacion binaria es asi: "<<
-    informeFinal(exp)<<"\n====================================================\n"<<endl;
+    pot_Dos(answer);
+
+
+
+    // exp = los_exponentes(answer);
+
+    // cout<<"====================================================\nEl numero "<<answer<<" en notacion binaria es asi: "<<
+    // informeFinal(exp)<<"\n====================================================\n"<<endl;
     
 
 
@@ -153,4 +273,3 @@ int main(){
     return 0;
 
 }
-
