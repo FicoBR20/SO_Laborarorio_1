@@ -51,6 +51,7 @@ vector <int> fracciones(int x){
     while (vlr_base>=2){
         auxiliar = pot_Dos(vlr_base);
         receptor[auxiliar]=1;
+        info_final[auxiliar]=1;
         vlr_base = vlr_base-pow(2, auxiliar);
 
     }
@@ -60,6 +61,7 @@ vector <int> fracciones(int x){
     if (x%2!=0 || x==1)
     {
         receptor[0]=1;
+        info_final[0]=1;
 
     }
     reverse(receptor.begin(), receptor.end());// se invierte el orden del contenido
@@ -73,6 +75,8 @@ vector <int> fracciones(int x){
         ss << *it << " "; 
     } 
     cout << ss.str() << endl; 
+
+     
 
 
     return receptor;

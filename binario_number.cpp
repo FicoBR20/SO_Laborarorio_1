@@ -54,7 +54,7 @@ return acu;
 /**
  * funcion que genera un arreglo con los factores de 2.
  */
-vector info_binario(int a_binario){
+vector<int> info_binario(int a_binario){
 
 vector<int>contenedor(10,0);
 
@@ -67,7 +67,7 @@ int receptor=a_binario;//se reducira hasta cero
 while (receptor>=2)
 {
     auxiliar = mcd(receptor);
-    contenedor[auxiliar]=1;
+    contenedor.push_back(auxiliar);
     receptor=receptor-(pow(2,auxiliar));
     cout<<" mis auxiliares "<<auxiliar<<endl;
     auxiliar=0;
@@ -89,7 +89,7 @@ while (receptor>=2)
 
 cout<<" mi salida sera "<<salida<<endl;
 
-return salida;
+return contenedor;
 
     
 }
@@ -110,6 +110,7 @@ int main(int argc, char const *argv[])
     vector<int>salebinario(10,0);
 
     info_binario(answer);
+
 
 
 
