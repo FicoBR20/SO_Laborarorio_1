@@ -6,6 +6,12 @@ Fecha última modificación: 2024-09-05
 Licencia: GNU-GPL
 */
 
+/**
+ * ANOTATIONS;  da bugs con el 1, revisar el valor de las
+ * operaciones con modulo ya que 1%n=1  y  0%n=0
+ * ..manana seguimos.
+ */
+
 #include<iostream>
 #include <string>
 #include <vector>
@@ -158,34 +164,16 @@ int pot_Dos(int x){//x>0
  * */
 vector <int> los_exponentes(int x){
 
+    info_exponentes=x;
+
     if (x<0)
     {
-        cout<<"....funcion desbordada...\n...debe ingresar un numero entero positivo...\n\n";
+        cout<<"....funcion desbordada...\n...debe ingresar un numero entero... gracias.\n\n";
         return desbordada;
 
     }
-    else if ((x>=0 || x<=2))
-    {
-        if (x%2!=0)
-        {
-            receptor.pop_back();
-            receptor.push_back(1);
-        }
-        else if (x%2==0)
-        {
-            if (x==2)
-            {
-                receptor[receptor.size()-x]=1;
-            }
-            
-            receptor.pop_back();
-            receptor.push_back(0);
-        }
-        
-        
-    }
 
-    else if (x>2)
+    else if (x>=0)
     {
         /***
          * ciclo que llena en vector receptor con los
@@ -194,61 +182,83 @@ vector <int> los_exponentes(int x){
          * a 2
          */
         
-            if (x%2!=0)
+            if (x%2!=0)//impares
             {
-                
-                
-                auxiliar = pot_Dos(x);
+                x=(int)x/2;
 
-                cout<<"El numero "<<info_exponentes<<
-                " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
-                x = x-pow(2, auxiliar);
-
-                if (x<0)
+                if (x==0)
                 {
-                    cout<<"hay que salir impares\n";
+                    receptor.pop_back();
+                    receptor.push_back(0);
                 }
                 else{
-                    receptor.push_back(auxiliar);
-                    los_exponentes(x);
+                    
+                    
+                    auxiliar = pot_Dos(x);
+
+                    receptor[auxiliar]=1;
+
+                    cout<<"El numero "<<info_exponentes<<
+                    " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
+                    x = x-pow(2, auxiliar);
+
+                    if (x==1)
+                    {
+                        receptor.pop_back();
+                        receptor.push_back(1);
+                        cout<<"..se acabo el impar\n";
+                        //return receptor;
+                    }
+                    else if (x>0)
+                    {
+                        los_exponentes(x);
+                    }
+                
                 }
             }
             else if (x%2==0)
             {
-                auxiliar = pot_Dos(x);
+                x=(int)x/2;
 
-                cout<<"El numero "<<info_exponentes<<
-                " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
-                x = x-pow(2, auxiliar);
-
-                if (x<0)
+                if (x==0)
                 {
-                    cout<<"hay que salir pares\n";
+                    receptor.pop_back();
+                    receptor.push_back(0);
+                    /* code */
+                }
+                else if (x==1)
+                {
+                    receptor.pop_back();
+                    receptor.push_back(1);
                 }
                 else{
-                    receptor.push_back(auxiliar);
-                    los_exponentes(x);
-                }
+
+                    auxiliar = pot_Dos(x);
+                    
+                    receptor[auxiliar]=1;
+
+                    cout<<"El numero "<<info_exponentes<<
+                    " se puede expresar como pow(2,"<<auxiliar<<") "<<endl;
+                    x = x-pow(2, auxiliar);
+
+                    if (x==0)
+                    {
+                        receptor.pop_back();
+                        receptor.push_back(0);
+                        cout<<"saliendo en pares\n";
+                        //return receptor;
+                    }
+                    else{
+                        los_exponentes(x);
+                    }
                 
+                }
             }
-            
-            
-            
+                  
 
         
     }
     
-    
-    
-    
-    
-    
-
-
-
-
-
-
     //impresion
 
     int indice =0;
