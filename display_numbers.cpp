@@ -40,12 +40,13 @@ int pot_Dos(int x){//x>0
  * funcion que genera un vector <int> con los unos y ceros
  * correspondienes a la transformacion de un entero a binario
  */
-vector <int> fracciones(int x){
+string fracciones(int x){
 
     vector <int> receptor(10,0);//recepciona exponentes
     
     int auxiliar =0;//para llenar arreglo
     int vlr_base=x;//asignacion
+    string info="";//contenerdor final de unos y ceros del binario
  
 
     while (vlr_base>=2){
@@ -65,17 +66,19 @@ vector <int> fracciones(int x){
     reverse(receptor.begin(), receptor.end());// se invierte el orden del contenido
 
     /**
-     * impresion
+     * stringstream que recibe el vector <int>
      */
     stringstream ss; 
   
     for (auto it = receptor.begin(); it != receptor.end(); it++) { 
         ss << *it << " "; 
     } 
-    cout << ss.str() << endl; 
 
+    info=ss.str();//asignacion final
 
-    return receptor;
+    cout << info << endl; 
+
+    return info;
     
 }
 
@@ -87,22 +90,23 @@ vector <int> fracciones(int x){
 
 int main(){
     string auxiliar;
-    int answer;
-    cout <<"Ingrese el numero entero a expresar ";
+    string temporal="";//contiene los binarios
+
+    cout <<"Ingrese ENTER para obtener los numeros binarios del 1 al 10\n";
     getline(cin, auxiliar);
-    answer=stoi(auxiliar);
-    int info = answer;
 
-    vector<int>temporal;
-
-    temporal=fracciones(answer);
-
-
-
-
-    // cout<<"La representacion decimal de "<<answer<<" es: "<<endl;
-    // cout<<"La representacion octal de "<<answer<<" es: "<<endl;
-    // cout<<"La representacion hexadecimal de "<<answer<<" es: "<<endl;
+    /**
+     * Ciclo de impresion de los numeros primos del 
+     * 1 hasta el numero 10
+     */
+    int i=0;
+    while (i<11)
+    {
+        temporal=fracciones(i);
+        i++;
+        temporal="";
+    }
+    
 
 
     return 0;
